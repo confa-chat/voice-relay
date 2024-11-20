@@ -1,0 +1,6 @@
+github.com/gordonklaus/portaudio v0.0.0-20230709114228-aafa478834f5 h1:5AlozfqaVjGYGhms2OsdUyfdJME76E6rx5MdGpjzZpc=
+github.com/gordonklaus/portaudio v0.0.0-20230709114228-aafa478834f5/go.mod h1:WY8R6YKlI2ZI3UyzFk7P6yGSuS+hFwNtEzrexRyD7Es=
+github.com/royalcat/btrgo v0.0.0-20240318160410-19bd27154450 h1:AZyZxXZLniAR0DaZhTS4RVcHtOvYMW8IunplqC9A0mk=
+github.com/royalcat/btrgo v0.0.0-20240318160410-19bd27154450/go.mod h1:m3TPa9l/wMKpm/7WHrMs3dSFUxo7kLHaI8ap+SFGYhQ=
+golang.org/x/sync v0.9.0 h1:fEo0HyrW1GIgZdpbhCRO0PkJajUS5H9IFUztCgEo2jQ=
+golang.org/x/sync v0.9.0/go.mod h1:Czt+wKu1gCyEFDUtn0jG5QVvpJ6rzVqr5aXyt9drQfk=
