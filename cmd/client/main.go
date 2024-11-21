@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -33,10 +34,9 @@ func main() {
 			}
 		}()
 
-		println("start sending audio")
-
 		err := sendAudio(pw)
 		if err != nil {
+			println(fmt.Errorf("error sending audio: %w", err).Error())
 			return err
 		}
 		return nil
@@ -53,6 +53,7 @@ func main() {
 
 		err = receiveAudio(resp.Body)
 		if err != nil {
+			println(fmt.Errorf("error receiving audio: %w", err).Error())
 			return err
 		}
 		return nil

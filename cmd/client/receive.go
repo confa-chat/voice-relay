@@ -6,6 +6,7 @@ import (
 	"konfa/voip/internal/codec"
 
 	"github.com/gordonklaus/portaudio"
+	"gopkg.in/hraban/opus.v2"
 )
 
 func receiveAudio(r io.Reader) error {
@@ -39,10 +40,20 @@ func receiveAudio(r io.Reader) error {
 	stream.Start()
 	defer stream.Close()
 
+	dec, err := opus.NewDecoder(codec.SampleRate, codec.Channels)
+	if err != nil {
+		return fmt.Errorf("error creating opus stream: %w", err)
+	}
+
 	for {
-		err := codec.Read(r, buf)
+		data, err := codec.ReadPacket(r)
 		if err != nil {
-			return fmt.Errorf("error reading from reader: %w", err)
+			return fmt.Errorf("error reading packet: %w", err)
+		}
+
+		_, err = dec.DecodeFloat32(data, buf)
+		if err != nil {
+			return fmt.Errorf("error reading from opus stream: %w", err)
 		}
 		err = stream.Write()
 		if err != nil {

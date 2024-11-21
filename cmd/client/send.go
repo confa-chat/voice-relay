@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"konfa/voip/internal/codec"
 
 	"github.com/gordonklaus/portaudio"
+	"gopkg.in/hraban/opus.v2"
 )
 
 func sendAudio(w io.Writer) error {
@@ -35,15 +37,26 @@ func sendAudio(w io.Writer) error {
 	stream.Start()
 	defer stream.Close()
 
+	enc, err := opus.NewEncoder(codec.SampleRate, codec.Channels, opus.AppVoIP)
+	if err != nil {
+		return fmt.Errorf("error creating opus encoder: %w", err)
+	}
+
+	println("start sending audio")
+
 	for {
 		err := stream.Read()
 		if err != nil {
 			return err
 		}
-		err = codec.Write(w, buf)
+
+		out := make([]byte, codec.MaxPacketSize)
+		n, err := enc.EncodeFloat32(buf, out)
 		if err != nil {
-			return err
+			return fmt.Errorf("error encoding audio: %w", err)
 		}
+
+		codec.WritePacket(w, out[:n])
 	}
 
 }

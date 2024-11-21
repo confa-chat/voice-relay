@@ -6,9 +6,11 @@ import (
 	"io"
 	"konfa/voip/internal/codec"
 	"net/http"
+	"slices"
 	"sync"
 
 	"github.com/royalcat/btrgo/btrchannels"
+	"gopkg.in/hraban/opus.v2"
 )
 
 func main() {
@@ -17,9 +19,17 @@ func main() {
 	http.HandleFunc("POST /audio/send", func(w http.ResponseWriter, r *http.Request) {
 		user := r.URL.Query().Get("user")
 
-		buf := make([]float32, codec.FramesPerBuffer)
+		dec, err := opus.NewDecoder(codec.SampleRate, codec.Channels)
+		if err != nil {
+			err := fmt.Errorf("error creating opus stream: %w", err)
+			println(err.Error())
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		soundBuf := make([]float32, codec.FramesPerBuffer)
 		for {
-			err := codec.Read(r.Body, buf)
+			data, err := codec.ReadPacket(r.Body)
 			if err != nil {
 				if errors.Is(err, io.EOF) {
 					w.WriteHeader(http.StatusOK)
@@ -32,7 +42,15 @@ func main() {
 				return
 			}
 
-			vc.Send(user, buf)
+			_, err = dec.DecodeFloat32(data, soundBuf)
+			if err != nil {
+				err := fmt.Errorf("error reading from opus stream: %w", err)
+				println(err.Error())
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+
+			vc.Send(user, slices.Clone(soundBuf))
 		}
 
 	})
@@ -51,14 +69,24 @@ func main() {
 		w.Header().Set("Transfer-Encoding", "chunked")
 		w.Header().Set("Content-Type", "audio/wave")
 
-		soudChan := vc.Listener(user)
+		flusher.Flush()
 
+		soudChan := vc.Listener(user)
+		enc, err := opus.NewEncoder(codec.SampleRate, codec.Channels, opus.AppVoIP)
+		if err != nil {
+			println(err.Error())
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		outBuf := make([]byte, 1024)
 		for v := range soudChan.Out() {
-			err := codec.Write(w, v)
+			n, err := enc.EncodeFloat32(v, outBuf)
 			if err != nil {
 				println(err.Error())
 				return
 			}
+			codec.WritePacket(w, outBuf[:n])
 			flusher.Flush()
 		}
 	})
