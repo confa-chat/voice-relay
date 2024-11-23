@@ -1,15 +1,17 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"io"
-	"konfa/voip/internal/codec"
+
+	"github.com/royalcat/konfa/internal/codec"
+	voicev1 "github.com/royalcat/konfa/internal/proto/gen/konfa/voice/v1"
 
 	"github.com/gordonklaus/portaudio"
-	"gopkg.in/hraban/opus.v2"
 )
 
-func sendAudio(w io.Writer) error {
+func sendAudio(ctx context.Context, vclient voicev1.VoiceServiceClient, server, channel, user string) error {
 	devs, err := portaudio.Devices()
 	if err != nil {
 		return err
@@ -37,9 +39,28 @@ func sendAudio(w io.Writer) error {
 	stream.Start()
 	defer stream.Close()
 
-	enc, err := opus.NewEncoder(codec.SampleRate, codec.Channels, opus.AppVoIP)
+	enc, err := codec.NewEncoder()
 	if err != nil {
 		return fmt.Errorf("error creating opus encoder: %w", err)
+	}
+
+	w, err := vclient.Send(ctx)
+	if err != nil {
+		return fmt.Errorf("error creating send stream: %w", err)
+	}
+
+	err = w.Send(&voicev1.SendRequest{
+		Request: &voicev1.SendRequest_VoiceInfo{
+			VoiceInfo: &voicev1.VoiceInfo{
+				Codec:     voicev1.Codec_CODEC_OPUS,
+				ServerId:  server,
+				ChannelId: channel,
+				UserId:    user,
+			},
+		},
+	})
+	if err != nil {
+		return fmt.Errorf("error sending first message: %w", err)
 	}
 
 	println("start sending audio")
@@ -47,16 +68,24 @@ func sendAudio(w io.Writer) error {
 	for {
 		err := stream.Read()
 		if err != nil {
-			return err
+			return fmt.Errorf("error reading audio: %w", err)
 		}
 
-		out := make([]byte, codec.MaxPacketSize)
-		n, err := enc.EncodeFloat32(buf, out)
+		data, err := enc.Encode(buf)
 		if err != nil {
 			return fmt.Errorf("error encoding audio: %w", err)
 		}
 
-		codec.WritePacket(w, out[:n])
+		err = w.Send(&voicev1.SendRequest{
+			Request: &voicev1.SendRequest_VoiceData{
+				VoiceData: &voicev1.VoiceData{
+					Data: data,
+				},
+			},
+		})
+		if err != nil && err != io.EOF {
+			return fmt.Errorf("error sending audio: %w", err)
+		}
 	}
 
 }

@@ -1,40 +1,53 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
-	"io"
-	"net/http"
+	"slices"
 
 	"github.com/gordonklaus/portaudio"
+	voicev1 "github.com/royalcat/konfa/internal/proto/gen/konfa/voice/v1"
 	"golang.org/x/sync/errgroup"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func main() {
-	userF := flag.String("user", "user", "username")
-	listenUserF := flag.String("other-user", "other-user", "username of the other user who you want to call")
-	flag.Parse()
-
-	if userF == nil || *userF == "" || listenUserF == nil || *listenUserF == "" {
-		panic("user and other-user cannot be empty")
-	}
-
 	portaudio.Initialize()
 	defer portaudio.Terminate()
 
-	var group errgroup.Group
+	var host string
+	flag.StringVar(&host, "host", "localhost:8081", "host")
+
+	var server string
+	flag.StringVar(&server, "server", "", "server")
+
+	var channel string
+	flag.StringVar(&channel, "channel", "", "channel")
+
+	var user string
+	flag.StringVar(&user, "user", "", "username")
+
+	flag.Parse()
+
+	if server == "" || channel == "" || user == "" {
+		panic("user and other-user cannot be empty")
+	}
+
+	conn, err := grpc.NewClient(host, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		panic(fmt.Errorf("error creating grpc client: %w", err))
+	}
+
+	ctx := context.Background()
+
+	vclient := voicev1.NewVoiceServiceClient(conn)
+
+	group, ctx := errgroup.WithContext(ctx)
 
 	group.Go(func() error {
-		pr, pw := io.Pipe()
-
-		go func() {
-			_, err := http.Post("http://localhost:8080/audio/send?user="+*userF, "audio/wave", pr)
-			if err != nil {
-				panic(err)
-			}
-		}()
-
-		err := sendAudio(pw)
+		err := sendAudio(ctx, vclient, server, channel, user)
 		if err != nil {
 			println(fmt.Errorf("error sending audio: %w", err).Error())
 			return err
@@ -43,21 +56,37 @@ func main() {
 	})
 
 	group.Go(func() error {
-		resp, err := http.Get("http://localhost:8080/audio/receive?user=" + *listenUserF)
+		out, err := vclient.SubscribeChannelState(ctx, &voicev1.SubscribeChannelStateRequest{
+			ServerId:  server,
+			ChannelId: channel,
+		})
 		if err != nil {
-			return err
+			return fmt.Errorf("error subscribing to channel state: %w", err)
 		}
-		defer resp.Body.Close()
 
-		println("start receiving audio")
+		userListened := []string{}
 
-		err = receiveAudio(resp.Body)
-		if err != nil {
-			println(fmt.Errorf("error receiving audio: %w", err).Error())
-			return err
+		for {
+			state, err := out.Recv()
+			if err != nil {
+				return fmt.Errorf("error reading channel state: %w", err)
+			}
+
+			for _, u := range state.Users {
+				if !slices.Contains(userListened, u) && u != user {
+					go func() {
+						err := receiveAudio(ctx, vclient, server, channel, u)
+						if err != nil {
+							panic(err)
+						}
+						userListened = append(userListened, u)
+					}()
+
+				}
+
+			}
 		}
-		return nil
 	})
 
-	panic(group.Wait())
+	group.Wait()
 }

@@ -10,6 +10,40 @@
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}/cmd/server/main.go"
+        },
+        {
+            "name": "Launch Client [RoyalCat]",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/cmd/client",
+            "args": [
+                "--server",
+                "localhost:8080",
+                "--user",
+                "royalcat",
+                "--server",
+                "konfach",
+                "--channel",
+                "test"
+            ]
+        },
+        {
+            "name": "Launch Client [Test]",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/cmd/client",
+            "args": [
+                "--server",
+                "localhost:8080",
+                "--user",
+                "test",
+                "--server",
+                "konfach",
+                "--channel",
+                "test"
+            ]
         }
     ]
 }

@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package konfa.voice.v1;
+
+option go_package = "/voicev1";
+
+import "konfa/voice/v1/voice.proto";
+
+service VoiceService {
+  rpc Send(stream SendRequest) returns (SendResponse) {}
+  rpc Receive(ReceiveRequest) returns (stream ReceiveResponse) {}
+  rpc SubscribeChannelState(SubscribeChannelStateRequest) returns (stream SubscribeChannelStateResponse) {}
+}
+
+message SubscribeChannelStateRequest {
+  string server_id = 1;
+  string channel_id = 2;
+}
+
+message SubscribeChannelStateResponse {
+  repeated string users = 1;
+}
+
+message SendRequest {
+  oneof request {
+    VoiceInfo voice_info = 1;
+    VoiceData voice_data = 2;
+  }
+}
+
+message SendResponse {}
+
+message ReceiveRequest {
+   VoiceInfo voice_info = 1;
+}
+
+message ReceiveResponse {
+  oneof response {
+    VoiceInfo voice_info = 1;
+    VoiceData voice_data = 2;
+  }
+}
+

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package konfa.voice.v1;
+
+option go_package = "/voicev1";
+
+message SendMeta {
+}
+
+enum Codec {
+  CODEC_UNSPECIFIED = 0;
+  CODEC_PCM = 1;
+  CODEC_OPUS = 2;
+}
+
+message VoiceInfo {
+  string server_id = 1;
+  string channel_id = 2;
+  string user_id = 3;
+  Codec codec = 4;
+}
+
+message ReceiveMeta {
+}
+
+
+message VoiceData { bytes data = 1; }
