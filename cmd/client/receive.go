@@ -41,7 +41,7 @@ func receiveAudio(ctx context.Context, vclient voicev1.VoiceServiceClient, serve
 	stream.Start()
 	defer stream.Close()
 
-	dec, err := codec.NewDecoder()
+	dec, err := codec.NewDecoder(codec.CodecOpus)
 	if err != nil {
 		return fmt.Errorf("error creating opus stream: %w", err)
 	}

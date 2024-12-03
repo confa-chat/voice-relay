@@ -39,7 +39,7 @@ func sendAudio(ctx context.Context, vclient voicev1.VoiceServiceClient, server, 
 	stream.Start()
 	defer stream.Close()
 
-	enc, err := codec.NewEncoder()
+	enc, err := codec.NewEncoder(codec.CodecOpus)
 	if err != nil {
 		return fmt.Errorf("error creating opus encoder: %w", err)
 	}

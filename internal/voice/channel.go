@@ -65,7 +65,7 @@ func (b *broadcast[T]) Send(v T) {
 }
 
 func (b *broadcast[T]) ReceiveChan() btrchannels.OutChannel[T] {
-	ch := btrchannels.NewRingChannel[T](10)
+	ch := btrchannels.NewRingChannel[T](5)
 	b.callbacks = append(b.callbacks, func(v T) {
 		ch.In() <- v
 	})

@@ -77,7 +77,7 @@ func main() {
 					go func() {
 						err := receiveAudio(ctx, vclient, server, channel, u)
 						if err != nil {
-							panic(err)
+							panic(fmt.Errorf("error receiving audio: %w", err))
 						}
 						userListened = append(userListened, u)
 					}()

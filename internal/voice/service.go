@@ -79,7 +79,12 @@ func (s *Service) Send(in grpc.ClientStreamingServer[voicev1.SendRequest, voicev
 
 	vc := s.server(vi.ServerId).channel(vi.ChannelId)
 
-	dec, err := codec.NewDecoder()
+	cdc, err := mapCodec(vi.Codec)
+	if err != nil {
+		return fmt.Errorf("error initializing codec: %w", err)
+	}
+
+	dec, err := codec.NewDecoder(cdc)
 	if err != nil {
 		return fmt.Errorf("error creating encoder: %w", err)
 	}
@@ -118,7 +123,12 @@ func (s *Service) Receive(req *voicev1.ReceiveRequest, out grpc.ServerStreamingS
 
 	vc := s.server(vi.ServerId).channel(vi.ChannelId)
 
-	enc, err := codec.NewEncoder()
+	cdc, err := mapCodec(vi.Codec)
+	if err != nil {
+		return fmt.Errorf("error initializing codec: %w", err)
+	}
+
+	enc, err := codec.NewEncoder(cdc)
 	if err != nil {
 		return fmt.Errorf("error creating encoder: %w", err)
 	}

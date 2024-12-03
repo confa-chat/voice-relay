@@ -9,7 +9,7 @@ message SendMeta {
 
 enum Codec {
   CODEC_UNSPECIFIED = 0;
-  CODEC_PCM = 1;
+  CODEC_PCM_F32 = 1;
   CODEC_OPUS = 2;
 }
 
