@@ -5,8 +5,8 @@ import (
 	"log"
 	"net"
 
-	voicev1 "github.com/royalcat/konfa/internal/proto/gen/konfa/voice/v1"
-	"github.com/royalcat/konfa/internal/voice"
+	voicev1 "git.kmsign.ru/royalcat/konfa-voice/internal/proto/gen/konfa/voice/v1"
+	"git.kmsign.ru/royalcat/konfa-voice/internal/voice"
 	"google.golang.org/grpc"
 )
 

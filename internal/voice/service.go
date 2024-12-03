@@ -7,8 +7,8 @@ import (
 	"slices"
 	"time"
 
-	"github.com/royalcat/konfa/internal/codec"
-	voicev1 "github.com/royalcat/konfa/internal/proto/gen/konfa/voice/v1"
+	"git.kmsign.ru/royalcat/konfa-voice/internal/codec"
+	voicev1 "git.kmsign.ru/royalcat/konfa-voice/internal/proto/gen/konfa/voice/v1"
 	"google.golang.org/grpc"
 )
 
