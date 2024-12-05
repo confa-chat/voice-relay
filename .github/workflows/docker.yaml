@@ -52,7 +52,7 @@ jobs:
           context: .
           push: true
           pull: true
-          platforms: linux/amd64, linux/arm64, linux/riscv64
+          platforms: linux/amd64, linux/arm64
           labels: ${{ steps.meta.outputs.labels }}
           sbom: true
           provenance: true
