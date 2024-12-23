@@ -36,6 +36,7 @@ jobs:
           images: git.kmsign.ru/${{ github.repository }}
           # generate Docker tags based on the following events/attributes
           tags: |
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
             type=schedule
             type=ref,event=branch
             type=ref,event=pr
