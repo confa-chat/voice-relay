@@ -60,7 +60,6 @@ func NewEncoder(codec Codec) (Encoder, error) {
 		return &pcmF32Encoder{}, nil
 	default:
 		return nil, fmt.Errorf("unknown codec: %d", codec)
-
 	}
 }
 
