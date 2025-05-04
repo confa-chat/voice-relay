@@ -44,15 +44,15 @@ func sendAudio(ctx context.Context, vclient voicev1.VoiceServiceClient, server, 
 		return fmt.Errorf("error creating opus encoder: %w", err)
 	}
 
-	w, err := vclient.Send(ctx)
+	w, err := vclient.SpeakToChannel(ctx)
 	if err != nil {
 		return fmt.Errorf("error creating send stream: %w", err)
 	}
 
-	err = w.Send(&voicev1.SendRequest{
-		Request: &voicev1.SendRequest_VoiceInfo{
+	err = w.Send(&voicev1.SpeakToChannelRequest{
+		Request: &voicev1.SpeakToChannelRequest_VoiceInfo{
 			VoiceInfo: &voicev1.VoiceInfo{
-				Codec:     voicev1.Codec_CODEC_OPUS,
+				Codec:     voicev1.AudioCodec_AUDIO_CODEC_OPUS,
 				ServerId:  server,
 				ChannelId: channel,
 				UserId:    user,
@@ -76,8 +76,8 @@ func sendAudio(ctx context.Context, vclient voicev1.VoiceServiceClient, server, 
 			return fmt.Errorf("error encoding audio: %w", err)
 		}
 
-		err = w.Send(&voicev1.SendRequest{
-			Request: &voicev1.SendRequest_VoiceData{
+		err = w.Send(&voicev1.SpeakToChannelRequest{
+			Request: &voicev1.SpeakToChannelRequest_VoiceData{
 				VoiceData: &voicev1.VoiceData{
 					Data: data,
 				},

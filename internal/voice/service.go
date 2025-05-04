@@ -33,12 +33,18 @@ func (s *Service) server(name string) *Server {
 	return s.servers[name]
 }
 
-// SubscribeChannelState implements voicev1.VoiceServiceServer.
-func (s *Service) SubscribeChannelState(req *voicev1.SubscribeChannelStateRequest, out grpc.ServerStreamingServer[voicev1.SubscribeChannelStateResponse]) error {
+func (s *Service) JoinChannel(req *voicev1.JoinChannelRequest, out grpc.ServerStreamingServer[voicev1.JoinChannelResponse]) error {
 	vc := s.server(req.ServerId).channel(req.ChannelId)
 
-	err := out.Send(&voicev1.SubscribeChannelStateResponse{
-		Users: vc.Users(),
+	vc.AddUser(req.UserId)
+	defer vc.RemoveUser(req.UserId)
+
+	err := out.Send(&voicev1.JoinChannelResponse{
+		State: &voicev1.JoinChannelResponse_UsersState{
+			UsersState: &voicev1.UsersState{
+				UserIds: vc.Users(),
+			},
+		},
 	})
 	if err != nil {
 		return err
@@ -52,8 +58,12 @@ func (s *Service) SubscribeChannelState(req *voicev1.SubscribeChannelStateReques
 		slices.Sort(newUsers)
 
 		if !slices.Equal(oldUsers, newUsers) {
-			err := out.Send(&voicev1.SubscribeChannelStateResponse{
-				Users: vc.Users(),
+			err := out.Send(&voicev1.JoinChannelResponse{
+				State: &voicev1.JoinChannelResponse_UsersState{
+					UsersState: &voicev1.UsersState{
+						UserIds: vc.Users(),
+					},
+				},
 			})
 			if err != nil {
 				return err
@@ -65,8 +75,7 @@ func (s *Service) SubscribeChannelState(req *voicev1.SubscribeChannelStateReques
 	return nil
 }
 
-// Send implements voicev1.VoiceServiceServer.
-func (s *Service) Send(in grpc.ClientStreamingServer[voicev1.SendRequest, voicev1.SendResponse]) error {
+func (s *Service) SpeakToChannel(in grpc.ClientStreamingServer[voicev1.SpeakToChannelRequest, voicev1.SpeakToChannelResponse]) error {
 	msg, err := in.Recv()
 	if err != nil {
 		return fmt.Errorf("error receiving first message: %w", err)
@@ -78,6 +87,10 @@ func (s *Service) Send(in grpc.ClientStreamingServer[voicev1.SendRequest, voicev
 	}
 
 	vc := s.server(vi.ServerId).channel(vi.ChannelId)
+
+	if !slices.Contains(vc.Users(), vi.UserId) {
+		return fmt.Errorf("user not in channel")
+	}
 
 	cdc, err := mapCodec(vi.Codec)
 	if err != nil {
@@ -115,7 +128,7 @@ func (s *Service) Send(in grpc.ClientStreamingServer[voicev1.SendRequest, voicev
 }
 
 // Receive implements voicev1.VoiceServiceServer.
-func (s *Service) Receive(req *voicev1.ReceiveRequest, out grpc.ServerStreamingServer[voicev1.ReceiveResponse]) error {
+func (s *Service) ListenToUser(req *voicev1.ListenToUserRequest, out grpc.ServerStreamingServer[voicev1.ListenToUserResponse]) error {
 	vi := req.VoiceInfo
 	if vi == nil {
 		return fmt.Errorf("voice info not found in first message")
@@ -139,8 +152,8 @@ func (s *Service) Receive(req *voicev1.ReceiveRequest, out grpc.ServerStreamingS
 			return fmt.Errorf("error encoding voice data: %w", err)
 		}
 
-		err = out.Send(&voicev1.ReceiveResponse{
-			Response: &voicev1.ReceiveResponse_VoiceData{
+		err = out.Send(&voicev1.ListenToUserResponse{
+			Response: &voicev1.ListenToUserResponse_VoiceData{
 				VoiceData: &voicev1.VoiceData{
 					Data: data,
 				},

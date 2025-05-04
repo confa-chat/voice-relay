@@ -7,34 +7,41 @@ option go_package = "/voicev1";
 import "konfa/voice/v1/voice.proto";
 
 service VoiceService {
-  rpc Send(stream SendRequest) returns (SendResponse) {}
-  rpc Receive(ReceiveRequest) returns (stream ReceiveResponse) {}
-  rpc SubscribeChannelState(SubscribeChannelStateRequest) returns (stream SubscribeChannelStateResponse) {}
+  rpc SpeakToChannel(stream SpeakToChannelRequest) returns (SpeakToChannelResponse) {}
+  rpc ListenToUser(ListenToUserRequest) returns (stream ListenToUserResponse) {}
+  rpc JoinChannel(JoinChannelRequest) returns (stream JoinChannelResponse) {}
 }
 
-message SubscribeChannelStateRequest {
+message JoinChannelRequest {
   string server_id = 1;
   string channel_id = 2;
+  string user_id = 3;
 }
 
-message SubscribeChannelStateResponse {
-  repeated string users = 1;
+message JoinChannelResponse {
+  oneof state {
+    UsersState users_state = 1;
+  }
 }
 
-message SendRequest {
+message UsersState {
+  repeated string user_ids = 1;
+}
+
+message SpeakToChannelRequest {
   oneof request {
     VoiceInfo voice_info = 1;
     VoiceData voice_data = 2;
   }
 }
 
-message SendResponse {}
+message SpeakToChannelResponse {}
 
-message ReceiveRequest {
+message ListenToUserRequest {
    VoiceInfo voice_info = 1;
 }
 
-message ReceiveResponse {
+message ListenToUserResponse {
   oneof response {
     VoiceInfo voice_info = 1;
     VoiceData voice_data = 2;

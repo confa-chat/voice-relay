@@ -28,12 +28,30 @@ func (vc *Channel) Users() []string {
 	return out
 }
 
-func (vc *Channel) Send(user string, sound []float32) {
+func (vc *Channel) AddUser(user string) {
 	vc.mu.Lock()
 	defer vc.mu.Unlock()
 
 	if _, ok := vc.voices[user]; !ok {
 		vc.voices[user] = &broadcast[[]float32]{}
+	}
+}
+
+func (vc *Channel) RemoveUser(user string) {
+	vc.mu.Lock()
+	defer vc.mu.Unlock()
+
+	delete(vc.voices, user)
+}
+
+func (vc *Channel) Send(user string, sound []float32) {
+	vc.mu.Lock()
+	defer vc.mu.Unlock()
+
+	if _, ok := vc.voices[user]; !ok {
+		// MAYBE
+		// we should not listen to users that are not in the channel, but I'm not sure if it correct to make it silently to caller
+		return
 	}
 
 	vc.voices[user].Send(sound)

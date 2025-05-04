@@ -19,18 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	VoiceService_Send_FullMethodName                  = "/konfa.voice.v1.VoiceService/Send"
-	VoiceService_Receive_FullMethodName               = "/konfa.voice.v1.VoiceService/Receive"
-	VoiceService_SubscribeChannelState_FullMethodName = "/konfa.voice.v1.VoiceService/SubscribeChannelState"
+	VoiceService_SpeakToChannel_FullMethodName = "/konfa.voice.v1.VoiceService/SpeakToChannel"
+	VoiceService_ListenToUser_FullMethodName   = "/konfa.voice.v1.VoiceService/ListenToUser"
+	VoiceService_JoinChannel_FullMethodName    = "/konfa.voice.v1.VoiceService/JoinChannel"
 )
 
 // VoiceServiceClient is the client API for VoiceService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type VoiceServiceClient interface {
-	Send(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[SendRequest, SendResponse], error)
-	Receive(ctx context.Context, in *ReceiveRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ReceiveResponse], error)
-	SubscribeChannelState(ctx context.Context, in *SubscribeChannelStateRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[SubscribeChannelStateResponse], error)
+	SpeakToChannel(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[SpeakToChannelRequest, SpeakToChannelResponse], error)
+	ListenToUser(ctx context.Context, in *ListenToUserRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ListenToUserResponse], error)
+	JoinChannel(ctx context.Context, in *JoinChannelRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[JoinChannelResponse], error)
 }
 
 type voiceServiceClient struct {
@@ -41,26 +41,26 @@ func NewVoiceServiceClient(cc grpc.ClientConnInterface) VoiceServiceClient {
 	return &voiceServiceClient{cc}
 }
 
-func (c *voiceServiceClient) Send(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[SendRequest, SendResponse], error) {
+func (c *voiceServiceClient) SpeakToChannel(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[SpeakToChannelRequest, SpeakToChannelResponse], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &VoiceService_ServiceDesc.Streams[0], VoiceService_Send_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &VoiceService_ServiceDesc.Streams[0], VoiceService_SpeakToChannel_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[SendRequest, SendResponse]{ClientStream: stream}
+	x := &grpc.GenericClientStream[SpeakToChannelRequest, SpeakToChannelResponse]{ClientStream: stream}
 	return x, nil
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type VoiceService_SendClient = grpc.ClientStreamingClient[SendRequest, SendResponse]
+type VoiceService_SpeakToChannelClient = grpc.ClientStreamingClient[SpeakToChannelRequest, SpeakToChannelResponse]
 
-func (c *voiceServiceClient) Receive(ctx context.Context, in *ReceiveRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ReceiveResponse], error) {
+func (c *voiceServiceClient) ListenToUser(ctx context.Context, in *ListenToUserRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ListenToUserResponse], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &VoiceService_ServiceDesc.Streams[1], VoiceService_Receive_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &VoiceService_ServiceDesc.Streams[1], VoiceService_ListenToUser_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[ReceiveRequest, ReceiveResponse]{ClientStream: stream}
+	x := &grpc.GenericClientStream[ListenToUserRequest, ListenToUserResponse]{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -71,15 +71,15 @@ func (c *voiceServiceClient) Receive(ctx context.Context, in *ReceiveRequest, op
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type VoiceService_ReceiveClient = grpc.ServerStreamingClient[ReceiveResponse]
+type VoiceService_ListenToUserClient = grpc.ServerStreamingClient[ListenToUserResponse]
 
-func (c *voiceServiceClient) SubscribeChannelState(ctx context.Context, in *SubscribeChannelStateRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[SubscribeChannelStateResponse], error) {
+func (c *voiceServiceClient) JoinChannel(ctx context.Context, in *JoinChannelRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[JoinChannelResponse], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &VoiceService_ServiceDesc.Streams[2], VoiceService_SubscribeChannelState_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &VoiceService_ServiceDesc.Streams[2], VoiceService_JoinChannel_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[SubscribeChannelStateRequest, SubscribeChannelStateResponse]{ClientStream: stream}
+	x := &grpc.GenericClientStream[JoinChannelRequest, JoinChannelResponse]{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -90,15 +90,15 @@ func (c *voiceServiceClient) SubscribeChannelState(ctx context.Context, in *Subs
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type VoiceService_SubscribeChannelStateClient = grpc.ServerStreamingClient[SubscribeChannelStateResponse]
+type VoiceService_JoinChannelClient = grpc.ServerStreamingClient[JoinChannelResponse]
 
 // VoiceServiceServer is the server API for VoiceService service.
 // All implementations should embed UnimplementedVoiceServiceServer
 // for forward compatibility.
 type VoiceServiceServer interface {
-	Send(grpc.ClientStreamingServer[SendRequest, SendResponse]) error
-	Receive(*ReceiveRequest, grpc.ServerStreamingServer[ReceiveResponse]) error
-	SubscribeChannelState(*SubscribeChannelStateRequest, grpc.ServerStreamingServer[SubscribeChannelStateResponse]) error
+	SpeakToChannel(grpc.ClientStreamingServer[SpeakToChannelRequest, SpeakToChannelResponse]) error
+	ListenToUser(*ListenToUserRequest, grpc.ServerStreamingServer[ListenToUserResponse]) error
+	JoinChannel(*JoinChannelRequest, grpc.ServerStreamingServer[JoinChannelResponse]) error
 }
 
 // UnimplementedVoiceServiceServer should be embedded to have
@@ -108,14 +108,14 @@ type VoiceServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedVoiceServiceServer struct{}
 
-func (UnimplementedVoiceServiceServer) Send(grpc.ClientStreamingServer[SendRequest, SendResponse]) error {
-	return status.Errorf(codes.Unimplemented, "method Send not implemented")
+func (UnimplementedVoiceServiceServer) SpeakToChannel(grpc.ClientStreamingServer[SpeakToChannelRequest, SpeakToChannelResponse]) error {
+	return status.Errorf(codes.Unimplemented, "method SpeakToChannel not implemented")
 }
-func (UnimplementedVoiceServiceServer) Receive(*ReceiveRequest, grpc.ServerStreamingServer[ReceiveResponse]) error {
-	return status.Errorf(codes.Unimplemented, "method Receive not implemented")
+func (UnimplementedVoiceServiceServer) ListenToUser(*ListenToUserRequest, grpc.ServerStreamingServer[ListenToUserResponse]) error {
+	return status.Errorf(codes.Unimplemented, "method ListenToUser not implemented")
 }
-func (UnimplementedVoiceServiceServer) SubscribeChannelState(*SubscribeChannelStateRequest, grpc.ServerStreamingServer[SubscribeChannelStateResponse]) error {
-	return status.Errorf(codes.Unimplemented, "method SubscribeChannelState not implemented")
+func (UnimplementedVoiceServiceServer) JoinChannel(*JoinChannelRequest, grpc.ServerStreamingServer[JoinChannelResponse]) error {
+	return status.Errorf(codes.Unimplemented, "method JoinChannel not implemented")
 }
 func (UnimplementedVoiceServiceServer) testEmbeddedByValue() {}
 
@@ -137,34 +137,34 @@ func RegisterVoiceServiceServer(s grpc.ServiceRegistrar, srv VoiceServiceServer)
 	s.RegisterService(&VoiceService_ServiceDesc, srv)
 }
 
-func _VoiceService_Send_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(VoiceServiceServer).Send(&grpc.GenericServerStream[SendRequest, SendResponse]{ServerStream: stream})
+func _VoiceService_SpeakToChannel_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(VoiceServiceServer).SpeakToChannel(&grpc.GenericServerStream[SpeakToChannelRequest, SpeakToChannelResponse]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type VoiceService_SendServer = grpc.ClientStreamingServer[SendRequest, SendResponse]
+type VoiceService_SpeakToChannelServer = grpc.ClientStreamingServer[SpeakToChannelRequest, SpeakToChannelResponse]
 
-func _VoiceService_Receive_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(ReceiveRequest)
+func _VoiceService_ListenToUser_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ListenToUserRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(VoiceServiceServer).Receive(m, &grpc.GenericServerStream[ReceiveRequest, ReceiveResponse]{ServerStream: stream})
+	return srv.(VoiceServiceServer).ListenToUser(m, &grpc.GenericServerStream[ListenToUserRequest, ListenToUserResponse]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type VoiceService_ReceiveServer = grpc.ServerStreamingServer[ReceiveResponse]
+type VoiceService_ListenToUserServer = grpc.ServerStreamingServer[ListenToUserResponse]
 
-func _VoiceService_SubscribeChannelState_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(SubscribeChannelStateRequest)
+func _VoiceService_JoinChannel_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(JoinChannelRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(VoiceServiceServer).SubscribeChannelState(m, &grpc.GenericServerStream[SubscribeChannelStateRequest, SubscribeChannelStateResponse]{ServerStream: stream})
+	return srv.(VoiceServiceServer).JoinChannel(m, &grpc.GenericServerStream[JoinChannelRequest, JoinChannelResponse]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type VoiceService_SubscribeChannelStateServer = grpc.ServerStreamingServer[SubscribeChannelStateResponse]
+type VoiceService_JoinChannelServer = grpc.ServerStreamingServer[JoinChannelResponse]
 
 // VoiceService_ServiceDesc is the grpc.ServiceDesc for VoiceService service.
 // It's only intended for direct use with grpc.RegisterService,
@@ -175,18 +175,18 @@ var VoiceService_ServiceDesc = grpc.ServiceDesc{
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "Send",
-			Handler:       _VoiceService_Send_Handler,
+			StreamName:    "SpeakToChannel",
+			Handler:       _VoiceService_SpeakToChannel_Handler,
 			ClientStreams: true,
 		},
 		{
-			StreamName:    "Receive",
-			Handler:       _VoiceService_Receive_Handler,
+			StreamName:    "ListenToUser",
+			Handler:       _VoiceService_ListenToUser_Handler,
 			ServerStreams: true,
 		},
 		{
-			StreamName:    "SubscribeChannelState",
-			Handler:       _VoiceService_SubscribeChannelState_Handler,
+			StreamName:    "JoinChannel",
+			Handler:       _VoiceService_JoinChannel_Handler,
 			ServerStreams: true,
 		},
 	},

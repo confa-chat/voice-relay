@@ -46,9 +46,9 @@ func receiveAudio(ctx context.Context, vclient voicev1.VoiceServiceClient, serve
 		return fmt.Errorf("error creating opus stream: %w", err)
 	}
 
-	rec, err := vclient.Receive(ctx, &voicev1.ReceiveRequest{
+	rec, err := vclient.ListenToUser(ctx, &voicev1.ListenToUserRequest{
 		VoiceInfo: &voicev1.VoiceInfo{
-			Codec:     voicev1.Codec_CODEC_OPUS,
+			Codec:     voicev1.AudioCodec_AUDIO_CODEC_OPUS,
 			ServerId:  server,
 			ChannelId: channel,
 			UserId:    user,

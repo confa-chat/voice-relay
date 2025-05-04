@@ -56,7 +56,7 @@ func main() {
 	})
 
 	group.Go(func() error {
-		out, err := vclient.SubscribeChannelState(ctx, &voicev1.SubscribeChannelStateRequest{
+		out, err := vclient.JoinChannel(ctx, &voicev1.JoinChannelRequest{
 			ServerId:  server,
 			ChannelId: channel,
 		})
@@ -72,7 +72,11 @@ func main() {
 				return fmt.Errorf("error reading channel state: %w", err)
 			}
 
-			for _, u := range state.Users {
+			if state.GetUsersState() == nil {
+				continue
+			}
+
+			for _, u := range state.GetUsersState().UserIds {
 				if !slices.Contains(userListened, u) && u != user {
 					go func() {
 						err := receiveAudio(ctx, vclient, server, channel, u)
@@ -81,9 +85,7 @@ func main() {
 						}
 						userListened = append(userListened, u)
 					}()
-
 				}
-
 			}
 		}
 	})
