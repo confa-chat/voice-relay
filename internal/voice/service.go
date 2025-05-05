@@ -7,8 +7,8 @@ import (
 	"slices"
 	"time"
 
-	"git.kmsign.ru/royalcat/konfa-voice/internal/codec"
-	voicev1 "git.kmsign.ru/royalcat/konfa-voice/internal/proto/gen/konfa/voice/v1"
+	"github.com/konfa-chat/voice-relay/internal/codec"
+	voicev1 "github.com/konfa-chat/voice-relay/internal/proto/gen/konfa/voice_relay/v1"
 	"google.golang.org/grpc"
 )
 
@@ -23,7 +23,7 @@ type Service struct {
 	// voicev1.UnimplementedVoiceServiceServer
 }
 
-var _ voicev1.VoiceServiceServer = (*Service)(nil)
+var _ voicev1.VoiceRelayServiceServer = (*Service)(nil)
 
 func (s *Service) server(name string) *Server {
 	if _, ok := s.servers[name]; !ok {

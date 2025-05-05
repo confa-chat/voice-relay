@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"io"
 
-	"git.kmsign.ru/royalcat/konfa-voice/internal/codec"
-	voicev1 "git.kmsign.ru/royalcat/konfa-voice/internal/proto/gen/konfa/voice/v1"
+	"github.com/konfa-chat/voice-relay/internal/codec"
+	voicev1 "github.com/konfa-chat/voice-relay/internal/proto/gen/konfa/voice_relay/v1"
 
 	"github.com/gordonklaus/portaudio"
 )
 
-func sendAudio(ctx context.Context, vclient voicev1.VoiceServiceClient, server, channel, user string) error {
+func sendAudio(ctx context.Context, vclient voicev1.VoiceRelayServiceClient, server, channel, user string) error {
 	devs, err := portaudio.Devices()
 	if err != nil {
 		return err

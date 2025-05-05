@@ -5,8 +5,8 @@ import (
 	"log"
 	"net"
 
-	voicev1 "git.kmsign.ru/royalcat/konfa-voice/internal/proto/gen/konfa/voice/v1"
-	"git.kmsign.ru/royalcat/konfa-voice/internal/voice"
+	voicev1 "github.com/konfa-chat/voice-relay/internal/proto/gen/konfa/voice_relay/v1"
+	"github.com/konfa-chat/voice-relay/internal/voice"
 	"google.golang.org/grpc"
 )
 
@@ -20,7 +20,7 @@ func main() {
 	}
 
 	grpcServer := grpc.NewServer()
-	voicev1.RegisterVoiceServiceServer(grpcServer, voiceService)
+	voicev1.RegisterVoiceRelayServiceServer(grpcServer, voiceService)
 
 	println("Server is running on port", port)
 	panic(grpcServer.Serve(lis))

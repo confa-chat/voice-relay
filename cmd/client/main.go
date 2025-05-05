@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"slices"
 
-	voicev1 "git.kmsign.ru/royalcat/konfa-voice/internal/proto/gen/konfa/voice/v1"
 	"github.com/gordonklaus/portaudio"
+	voicev1 "github.com/konfa-chat/voice-relay/internal/proto/gen/konfa/voice_relay/v1"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -42,7 +42,7 @@ func main() {
 
 	ctx := context.Background()
 
-	vclient := voicev1.NewVoiceServiceClient(conn)
+	vclient := voicev1.NewVoiceRelayServiceClient(conn)
 
 	group, ctx := errgroup.WithContext(ctx)
 

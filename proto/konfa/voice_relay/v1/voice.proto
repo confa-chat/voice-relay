@@ -1,11 +1,10 @@
 syntax = "proto3";
 
-package konfa.voice.v1;
+package konfa.voice_relay.v1;
 
-option go_package = "/voicev1";
+option go_package = "/voice_relayv1";
 
-message SendMeta {
-}
+message SendMeta {}
 
 enum AudioCodec {
   AUDIO_CODEC_UNSPECIFIED = 0;
@@ -20,10 +19,6 @@ message VoiceInfo {
   AudioCodec codec = 4;
 }
 
-message ReceiveMeta {
-}
+message ReceiveMeta {}
 
-
-message VoiceData { 
-  bytes data = 1;
- }
+message VoiceData { bytes data = 1; }

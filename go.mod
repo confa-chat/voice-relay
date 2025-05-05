@@ -1,4 +1,4 @@
-module git.kmsign.ru/royalcat/konfa-voice
+module github.com/konfa-chat/voice-relay
 
 go 1.23.3
 
