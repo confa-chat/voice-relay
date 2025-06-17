@@ -15,7 +15,7 @@ COPY ./internal ./internal
 
 
 RUN --mount=type=cache,mode=0777,target=/go/pkg/mod \
-    go build -o /konfa-voice-relay ./cmd/server/main.go 
+    go build -o /confa-voice-relay ./cmd/server/main.go 
 
 # run container
 FROM debian:bookworm-slim
@@ -24,8 +24,8 @@ RUN apt-get update
 RUN apt-get -y install libopus0 libopusfile0
 #Adding root serts for ssl
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=build /konfa-voice-relay /app/konfa-voice-relay
+COPY --from=build /confa-voice-relay /app/confa-voice-relay
 
 WORKDIR /app
 
-ENTRYPOINT [ "/app/konfa-voice-relay" ]
+ENTRYPOINT [ "/app/confa-voice-relay" ]

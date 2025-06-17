@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: konfa/voice_relay/v1/service.proto
+// source: confa/voice_relay/v1/service.proto
 
 package voice_relayv1
 
@@ -19,9 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	VoiceRelayService_SpeakToChannel_FullMethodName = "/konfa.voice_relay.v1.VoiceRelayService/SpeakToChannel"
-	VoiceRelayService_ListenToUser_FullMethodName   = "/konfa.voice_relay.v1.VoiceRelayService/ListenToUser"
-	VoiceRelayService_JoinChannel_FullMethodName    = "/konfa.voice_relay.v1.VoiceRelayService/JoinChannel"
+	VoiceRelayService_SpeakToChannel_FullMethodName = "/confa.voice_relay.v1.VoiceRelayService/SpeakToChannel"
+	VoiceRelayService_ListenToUser_FullMethodName   = "/confa.voice_relay.v1.VoiceRelayService/ListenToUser"
+	VoiceRelayService_JoinChannel_FullMethodName    = "/confa.voice_relay.v1.VoiceRelayService/JoinChannel"
 )
 
 // VoiceRelayServiceClient is the client API for VoiceRelayService service.
@@ -170,7 +170,7 @@ type VoiceRelayService_JoinChannelServer = grpc.ServerStreamingServer[JoinChanne
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var VoiceRelayService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "konfa.voice_relay.v1.VoiceRelayService",
+	ServiceName: "confa.voice_relay.v1.VoiceRelayService",
 	HandlerType: (*VoiceRelayServiceServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
@@ -190,5 +190,5 @@ var VoiceRelayService_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "konfa/voice_relay/v1/service.proto",
+	Metadata: "confa/voice_relay/v1/service.proto",
 }

@@ -3,8 +3,8 @@ package voice
 import (
 	"fmt"
 
-	"github.com/konfa-chat/voice-relay/internal/codec"
-	voicev1 "github.com/konfa-chat/voice-relay/internal/proto/gen/konfa/voice_relay/v1"
+	"github.com/confa-chat/voice-relay/internal/codec"
+	voicev1 "github.com/confa-chat/voice-relay/internal/proto/gen/confa/voice_relay/v1"
 )
 
 func mapCodec(c voicev1.AudioCodec) (codec.Codec, error) {

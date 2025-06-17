@@ -1,4 +1,4 @@
-module github.com/konfa-chat/voice-relay
+module github.com/confa-chat/voice-relay
 
 go 1.23.3
 

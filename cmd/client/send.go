@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/konfa-chat/voice-relay/internal/codec"
-	voicev1 "github.com/konfa-chat/voice-relay/internal/proto/gen/konfa/voice_relay/v1"
+	"github.com/confa-chat/voice-relay/internal/codec"
+	voicev1 "github.com/confa-chat/voice-relay/internal/proto/gen/confa/voice_relay/v1"
 
 	"github.com/gordonklaus/portaudio"
 )

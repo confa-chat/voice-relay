@@ -7,7 +7,7 @@ import (
 	"slices"
 
 	"github.com/gordonklaus/portaudio"
-	voicev1 "github.com/konfa-chat/voice-relay/internal/proto/gen/konfa/voice_relay/v1"
+	voicev1 "github.com/confa-chat/voice-relay/internal/proto/gen/confa/voice_relay/v1"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

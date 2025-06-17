@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        (unknown)
-// source: konfa/voice_relay/v1/service.proto
+// source: confa/voice_relay/v1/service.proto
 
 package voice_relayv1
 
@@ -32,7 +32,7 @@ type JoinChannelRequest struct {
 
 func (x *JoinChannelRequest) Reset() {
 	*x = JoinChannelRequest{}
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[0]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +44,7 @@ func (x *JoinChannelRequest) String() string {
 func (*JoinChannelRequest) ProtoMessage() {}
 
 func (x *JoinChannelRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[0]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +57,7 @@ func (x *JoinChannelRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use JoinChannelRequest.ProtoReflect.Descriptor instead.
 func (*JoinChannelRequest) Descriptor() ([]byte, []int) {
-	return file_konfa_voice_relay_v1_service_proto_rawDescGZIP(), []int{0}
+	return file_confa_voice_relay_v1_service_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *JoinChannelRequest) GetServerId() string {
@@ -93,7 +93,7 @@ type JoinChannelResponse struct {
 
 func (x *JoinChannelResponse) Reset() {
 	*x = JoinChannelResponse{}
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[1]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -105,7 +105,7 @@ func (x *JoinChannelResponse) String() string {
 func (*JoinChannelResponse) ProtoMessage() {}
 
 func (x *JoinChannelResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[1]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -118,7 +118,7 @@ func (x *JoinChannelResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use JoinChannelResponse.ProtoReflect.Descriptor instead.
 func (*JoinChannelResponse) Descriptor() ([]byte, []int) {
-	return file_konfa_voice_relay_v1_service_proto_rawDescGZIP(), []int{1}
+	return file_confa_voice_relay_v1_service_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *JoinChannelResponse) GetState() isJoinChannelResponse_State {
@@ -156,7 +156,7 @@ type UsersState struct {
 
 func (x *UsersState) Reset() {
 	*x = UsersState{}
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[2]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -168,7 +168,7 @@ func (x *UsersState) String() string {
 func (*UsersState) ProtoMessage() {}
 
 func (x *UsersState) ProtoReflect() protoreflect.Message {
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[2]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -181,7 +181,7 @@ func (x *UsersState) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UsersState.ProtoReflect.Descriptor instead.
 func (*UsersState) Descriptor() ([]byte, []int) {
-	return file_konfa_voice_relay_v1_service_proto_rawDescGZIP(), []int{2}
+	return file_confa_voice_relay_v1_service_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *UsersState) GetUserIds() []string {
@@ -204,7 +204,7 @@ type SpeakToChannelRequest struct {
 
 func (x *SpeakToChannelRequest) Reset() {
 	*x = SpeakToChannelRequest{}
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[3]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -216,7 +216,7 @@ func (x *SpeakToChannelRequest) String() string {
 func (*SpeakToChannelRequest) ProtoMessage() {}
 
 func (x *SpeakToChannelRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[3]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -229,7 +229,7 @@ func (x *SpeakToChannelRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SpeakToChannelRequest.ProtoReflect.Descriptor instead.
 func (*SpeakToChannelRequest) Descriptor() ([]byte, []int) {
-	return file_konfa_voice_relay_v1_service_proto_rawDescGZIP(), []int{3}
+	return file_confa_voice_relay_v1_service_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *SpeakToChannelRequest) GetRequest() isSpeakToChannelRequest_Request {
@@ -281,7 +281,7 @@ type SpeakToChannelResponse struct {
 
 func (x *SpeakToChannelResponse) Reset() {
 	*x = SpeakToChannelResponse{}
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[4]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -293,7 +293,7 @@ func (x *SpeakToChannelResponse) String() string {
 func (*SpeakToChannelResponse) ProtoMessage() {}
 
 func (x *SpeakToChannelResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[4]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -306,7 +306,7 @@ func (x *SpeakToChannelResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SpeakToChannelResponse.ProtoReflect.Descriptor instead.
 func (*SpeakToChannelResponse) Descriptor() ([]byte, []int) {
-	return file_konfa_voice_relay_v1_service_proto_rawDescGZIP(), []int{4}
+	return file_confa_voice_relay_v1_service_proto_rawDescGZIP(), []int{4}
 }
 
 type ListenToUserRequest struct {
@@ -318,7 +318,7 @@ type ListenToUserRequest struct {
 
 func (x *ListenToUserRequest) Reset() {
 	*x = ListenToUserRequest{}
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[5]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -330,7 +330,7 @@ func (x *ListenToUserRequest) String() string {
 func (*ListenToUserRequest) ProtoMessage() {}
 
 func (x *ListenToUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[5]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -343,7 +343,7 @@ func (x *ListenToUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListenToUserRequest.ProtoReflect.Descriptor instead.
 func (*ListenToUserRequest) Descriptor() ([]byte, []int) {
-	return file_konfa_voice_relay_v1_service_proto_rawDescGZIP(), []int{5}
+	return file_confa_voice_relay_v1_service_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ListenToUserRequest) GetVoiceInfo() *VoiceInfo {
@@ -366,7 +366,7 @@ type ListenToUserResponse struct {
 
 func (x *ListenToUserResponse) Reset() {
 	*x = ListenToUserResponse{}
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[6]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -378,7 +378,7 @@ func (x *ListenToUserResponse) String() string {
 func (*ListenToUserResponse) ProtoMessage() {}
 
 func (x *ListenToUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_konfa_voice_relay_v1_service_proto_msgTypes[6]
+	mi := &file_confa_voice_relay_v1_service_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -391,7 +391,7 @@ func (x *ListenToUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListenToUserResponse.ProtoReflect.Descriptor instead.
 func (*ListenToUserResponse) Descriptor() ([]byte, []int) {
-	return file_konfa_voice_relay_v1_service_proto_rawDescGZIP(), []int{6}
+	return file_confa_voice_relay_v1_service_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *ListenToUserResponse) GetResponse() isListenToUserResponse_Response {
@@ -435,18 +435,18 @@ func (*ListenToUserResponse_VoiceInfo) isListenToUserResponse_Response() {}
 
 func (*ListenToUserResponse_VoiceData) isListenToUserResponse_Response() {}
 
-var File_konfa_voice_relay_v1_service_proto protoreflect.FileDescriptor
+var File_confa_voice_relay_v1_service_proto protoreflect.FileDescriptor
 
-const file_konfa_voice_relay_v1_service_proto_rawDesc = "" +
+const file_confa_voice_relay_v1_service_proto_rawDesc = "" +
 	"\n" +
-	"\"konfa/voice_relay/v1/service.proto\x12\x14konfa.voice_relay.v1\x1a konfa/voice_relay/v1/voice.proto\"i\n" +
+	"\"confa/voice_relay/v1/service.proto\x12\x14confa.voice_relay.v1\x1a confa/voice_relay/v1/voice.proto\"i\n" +
 	"\x12JoinChannelRequest\x12\x1b\n" +
 	"\tserver_id\x18\x01 \x01(\tR\bserverId\x12\x1d\n" +
 	"\n" +
 	"channel_id\x18\x02 \x01(\tR\tchannelId\x12\x17\n" +
 	"\auser_id\x18\x03 \x01(\tR\x06userId\"c\n" +
 	"\x13JoinChannelResponse\x12C\n" +
-	"\vusers_state\x18\x01 \x01(\v2 .konfa.voice_relay.v1.UsersStateH\x00R\n" +
+	"\vusers_state\x18\x01 \x01(\v2 .confa.voice_relay.v1.UsersStateH\x00R\n" +
 	"usersStateB\a\n" +
 	"\x05state\"'\n" +
 	"\n" +
@@ -454,64 +454,64 @@ const file_konfa_voice_relay_v1_service_proto_rawDesc = "" +
 	"\buser_ids\x18\x01 \x03(\tR\auserIds\"\xa6\x01\n" +
 	"\x15SpeakToChannelRequest\x12@\n" +
 	"\n" +
-	"voice_info\x18\x01 \x01(\v2\x1f.konfa.voice_relay.v1.VoiceInfoH\x00R\tvoiceInfo\x12@\n" +
+	"voice_info\x18\x01 \x01(\v2\x1f.confa.voice_relay.v1.VoiceInfoH\x00R\tvoiceInfo\x12@\n" +
 	"\n" +
-	"voice_data\x18\x02 \x01(\v2\x1f.konfa.voice_relay.v1.VoiceDataH\x00R\tvoiceDataB\t\n" +
+	"voice_data\x18\x02 \x01(\v2\x1f.confa.voice_relay.v1.VoiceDataH\x00R\tvoiceDataB\t\n" +
 	"\arequest\"\x18\n" +
 	"\x16SpeakToChannelResponse\"U\n" +
 	"\x13ListenToUserRequest\x12>\n" +
 	"\n" +
-	"voice_info\x18\x01 \x01(\v2\x1f.konfa.voice_relay.v1.VoiceInfoR\tvoiceInfo\"\xa6\x01\n" +
+	"voice_info\x18\x01 \x01(\v2\x1f.confa.voice_relay.v1.VoiceInfoR\tvoiceInfo\"\xa6\x01\n" +
 	"\x14ListenToUserResponse\x12@\n" +
 	"\n" +
-	"voice_info\x18\x01 \x01(\v2\x1f.konfa.voice_relay.v1.VoiceInfoH\x00R\tvoiceInfo\x12@\n" +
+	"voice_info\x18\x01 \x01(\v2\x1f.confa.voice_relay.v1.VoiceInfoH\x00R\tvoiceInfo\x12@\n" +
 	"\n" +
-	"voice_data\x18\x02 \x01(\v2\x1f.konfa.voice_relay.v1.VoiceDataH\x00R\tvoiceDataB\n" +
+	"voice_data\x18\x02 \x01(\v2\x1f.confa.voice_relay.v1.VoiceDataH\x00R\tvoiceDataB\n" +
 	"\n" +
 	"\bresponse2\xd7\x02\n" +
 	"\x11VoiceRelayService\x12o\n" +
-	"\x0eSpeakToChannel\x12+.konfa.voice_relay.v1.SpeakToChannelRequest\x1a,.konfa.voice_relay.v1.SpeakToChannelResponse\"\x00(\x01\x12i\n" +
-	"\fListenToUser\x12).konfa.voice_relay.v1.ListenToUserRequest\x1a*.konfa.voice_relay.v1.ListenToUserResponse\"\x000\x01\x12f\n" +
-	"\vJoinChannel\x12(.konfa.voice_relay.v1.JoinChannelRequest\x1a).konfa.voice_relay.v1.JoinChannelResponse\"\x000\x01B\xa6\x01\n" +
-	"\x18com.konfa.voice_relay.v1B\fServiceProtoP\x01Z\x0e/voice_relayv1\xa2\x02\x03KVX\xaa\x02\x13Konfa.VoiceRelay.V1\xca\x02\x13Konfa\\VoiceRelay\\V1\xe2\x02\x1fKonfa\\VoiceRelay\\V1\\GPBMetadata\xea\x02\x15Konfa::VoiceRelay::V1b\x06proto3"
+	"\x0eSpeakToChannel\x12+.confa.voice_relay.v1.SpeakToChannelRequest\x1a,.confa.voice_relay.v1.SpeakToChannelResponse\"\x00(\x01\x12i\n" +
+	"\fListenToUser\x12).confa.voice_relay.v1.ListenToUserRequest\x1a*.confa.voice_relay.v1.ListenToUserResponse\"\x000\x01\x12f\n" +
+	"\vJoinChannel\x12(.confa.voice_relay.v1.JoinChannelRequest\x1a).confa.voice_relay.v1.JoinChannelResponse\"\x000\x01B\xa6\x01\n" +
+	"\x18com.confa.voice_relay.v1B\fServiceProtoP\x01Z\x0e/voice_relayv1\xa2\x02\x03CVX\xaa\x02\x13Confa.VoiceRelay.V1\xca\x02\x13Confa\\VoiceRelay\\V1\xe2\x02\x1fConfa\\VoiceRelay\\V1\\GPBMetadata\xea\x02\x15Confa::VoiceRelay::V1b\x06proto3"
 
 var (
-	file_konfa_voice_relay_v1_service_proto_rawDescOnce sync.Once
-	file_konfa_voice_relay_v1_service_proto_rawDescData []byte
+	file_confa_voice_relay_v1_service_proto_rawDescOnce sync.Once
+	file_confa_voice_relay_v1_service_proto_rawDescData []byte
 )
 
-func file_konfa_voice_relay_v1_service_proto_rawDescGZIP() []byte {
-	file_konfa_voice_relay_v1_service_proto_rawDescOnce.Do(func() {
-		file_konfa_voice_relay_v1_service_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_konfa_voice_relay_v1_service_proto_rawDesc), len(file_konfa_voice_relay_v1_service_proto_rawDesc)))
+func file_confa_voice_relay_v1_service_proto_rawDescGZIP() []byte {
+	file_confa_voice_relay_v1_service_proto_rawDescOnce.Do(func() {
+		file_confa_voice_relay_v1_service_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_confa_voice_relay_v1_service_proto_rawDesc), len(file_confa_voice_relay_v1_service_proto_rawDesc)))
 	})
-	return file_konfa_voice_relay_v1_service_proto_rawDescData
+	return file_confa_voice_relay_v1_service_proto_rawDescData
 }
 
-var file_konfa_voice_relay_v1_service_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_konfa_voice_relay_v1_service_proto_goTypes = []any{
-	(*JoinChannelRequest)(nil),     // 0: konfa.voice_relay.v1.JoinChannelRequest
-	(*JoinChannelResponse)(nil),    // 1: konfa.voice_relay.v1.JoinChannelResponse
-	(*UsersState)(nil),             // 2: konfa.voice_relay.v1.UsersState
-	(*SpeakToChannelRequest)(nil),  // 3: konfa.voice_relay.v1.SpeakToChannelRequest
-	(*SpeakToChannelResponse)(nil), // 4: konfa.voice_relay.v1.SpeakToChannelResponse
-	(*ListenToUserRequest)(nil),    // 5: konfa.voice_relay.v1.ListenToUserRequest
-	(*ListenToUserResponse)(nil),   // 6: konfa.voice_relay.v1.ListenToUserResponse
-	(*VoiceInfo)(nil),              // 7: konfa.voice_relay.v1.VoiceInfo
-	(*VoiceData)(nil),              // 8: konfa.voice_relay.v1.VoiceData
+var file_confa_voice_relay_v1_service_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_confa_voice_relay_v1_service_proto_goTypes = []any{
+	(*JoinChannelRequest)(nil),     // 0: confa.voice_relay.v1.JoinChannelRequest
+	(*JoinChannelResponse)(nil),    // 1: confa.voice_relay.v1.JoinChannelResponse
+	(*UsersState)(nil),             // 2: confa.voice_relay.v1.UsersState
+	(*SpeakToChannelRequest)(nil),  // 3: confa.voice_relay.v1.SpeakToChannelRequest
+	(*SpeakToChannelResponse)(nil), // 4: confa.voice_relay.v1.SpeakToChannelResponse
+	(*ListenToUserRequest)(nil),    // 5: confa.voice_relay.v1.ListenToUserRequest
+	(*ListenToUserResponse)(nil),   // 6: confa.voice_relay.v1.ListenToUserResponse
+	(*VoiceInfo)(nil),              // 7: confa.voice_relay.v1.VoiceInfo
+	(*VoiceData)(nil),              // 8: confa.voice_relay.v1.VoiceData
 }
-var file_konfa_voice_relay_v1_service_proto_depIdxs = []int32{
-	2, // 0: konfa.voice_relay.v1.JoinChannelResponse.users_state:type_name -> konfa.voice_relay.v1.UsersState
-	7, // 1: konfa.voice_relay.v1.SpeakToChannelRequest.voice_info:type_name -> konfa.voice_relay.v1.VoiceInfo
-	8, // 2: konfa.voice_relay.v1.SpeakToChannelRequest.voice_data:type_name -> konfa.voice_relay.v1.VoiceData
-	7, // 3: konfa.voice_relay.v1.ListenToUserRequest.voice_info:type_name -> konfa.voice_relay.v1.VoiceInfo
-	7, // 4: konfa.voice_relay.v1.ListenToUserResponse.voice_info:type_name -> konfa.voice_relay.v1.VoiceInfo
-	8, // 5: konfa.voice_relay.v1.ListenToUserResponse.voice_data:type_name -> konfa.voice_relay.v1.VoiceData
-	3, // 6: konfa.voice_relay.v1.VoiceRelayService.SpeakToChannel:input_type -> konfa.voice_relay.v1.SpeakToChannelRequest
-	5, // 7: konfa.voice_relay.v1.VoiceRelayService.ListenToUser:input_type -> konfa.voice_relay.v1.ListenToUserRequest
-	0, // 8: konfa.voice_relay.v1.VoiceRelayService.JoinChannel:input_type -> konfa.voice_relay.v1.JoinChannelRequest
-	4, // 9: konfa.voice_relay.v1.VoiceRelayService.SpeakToChannel:output_type -> konfa.voice_relay.v1.SpeakToChannelResponse
-	6, // 10: konfa.voice_relay.v1.VoiceRelayService.ListenToUser:output_type -> konfa.voice_relay.v1.ListenToUserResponse
-	1, // 11: konfa.voice_relay.v1.VoiceRelayService.JoinChannel:output_type -> konfa.voice_relay.v1.JoinChannelResponse
+var file_confa_voice_relay_v1_service_proto_depIdxs = []int32{
+	2, // 0: confa.voice_relay.v1.JoinChannelResponse.users_state:type_name -> confa.voice_relay.v1.UsersState
+	7, // 1: confa.voice_relay.v1.SpeakToChannelRequest.voice_info:type_name -> confa.voice_relay.v1.VoiceInfo
+	8, // 2: confa.voice_relay.v1.SpeakToChannelRequest.voice_data:type_name -> confa.voice_relay.v1.VoiceData
+	7, // 3: confa.voice_relay.v1.ListenToUserRequest.voice_info:type_name -> confa.voice_relay.v1.VoiceInfo
+	7, // 4: confa.voice_relay.v1.ListenToUserResponse.voice_info:type_name -> confa.voice_relay.v1.VoiceInfo
+	8, // 5: confa.voice_relay.v1.ListenToUserResponse.voice_data:type_name -> confa.voice_relay.v1.VoiceData
+	3, // 6: confa.voice_relay.v1.VoiceRelayService.SpeakToChannel:input_type -> confa.voice_relay.v1.SpeakToChannelRequest
+	5, // 7: confa.voice_relay.v1.VoiceRelayService.ListenToUser:input_type -> confa.voice_relay.v1.ListenToUserRequest
+	0, // 8: confa.voice_relay.v1.VoiceRelayService.JoinChannel:input_type -> confa.voice_relay.v1.JoinChannelRequest
+	4, // 9: confa.voice_relay.v1.VoiceRelayService.SpeakToChannel:output_type -> confa.voice_relay.v1.SpeakToChannelResponse
+	6, // 10: confa.voice_relay.v1.VoiceRelayService.ListenToUser:output_type -> confa.voice_relay.v1.ListenToUserResponse
+	1, // 11: confa.voice_relay.v1.VoiceRelayService.JoinChannel:output_type -> confa.voice_relay.v1.JoinChannelResponse
 	9, // [9:12] is the sub-list for method output_type
 	6, // [6:9] is the sub-list for method input_type
 	6, // [6:6] is the sub-list for extension type_name
@@ -519,20 +519,20 @@ var file_konfa_voice_relay_v1_service_proto_depIdxs = []int32{
 	0, // [0:6] is the sub-list for field type_name
 }
 
-func init() { file_konfa_voice_relay_v1_service_proto_init() }
-func file_konfa_voice_relay_v1_service_proto_init() {
-	if File_konfa_voice_relay_v1_service_proto != nil {
+func init() { file_confa_voice_relay_v1_service_proto_init() }
+func file_confa_voice_relay_v1_service_proto_init() {
+	if File_confa_voice_relay_v1_service_proto != nil {
 		return
 	}
-	file_konfa_voice_relay_v1_voice_proto_init()
-	file_konfa_voice_relay_v1_service_proto_msgTypes[1].OneofWrappers = []any{
+	file_confa_voice_relay_v1_voice_proto_init()
+	file_confa_voice_relay_v1_service_proto_msgTypes[1].OneofWrappers = []any{
 		(*JoinChannelResponse_UsersState)(nil),
 	}
-	file_konfa_voice_relay_v1_service_proto_msgTypes[3].OneofWrappers = []any{
+	file_confa_voice_relay_v1_service_proto_msgTypes[3].OneofWrappers = []any{
 		(*SpeakToChannelRequest_VoiceInfo)(nil),
 		(*SpeakToChannelRequest_VoiceData)(nil),
 	}
-	file_konfa_voice_relay_v1_service_proto_msgTypes[6].OneofWrappers = []any{
+	file_confa_voice_relay_v1_service_proto_msgTypes[6].OneofWrappers = []any{
 		(*ListenToUserResponse_VoiceInfo)(nil),
 		(*ListenToUserResponse_VoiceData)(nil),
 	}
@@ -540,17 +540,17 @@ func file_konfa_voice_relay_v1_service_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_konfa_voice_relay_v1_service_proto_rawDesc), len(file_konfa_voice_relay_v1_service_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_confa_voice_relay_v1_service_proto_rawDesc), len(file_confa_voice_relay_v1_service_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_konfa_voice_relay_v1_service_proto_goTypes,
-		DependencyIndexes: file_konfa_voice_relay_v1_service_proto_depIdxs,
-		MessageInfos:      file_konfa_voice_relay_v1_service_proto_msgTypes,
+		GoTypes:           file_confa_voice_relay_v1_service_proto_goTypes,
+		DependencyIndexes: file_confa_voice_relay_v1_service_proto_depIdxs,
+		MessageInfos:      file_confa_voice_relay_v1_service_proto_msgTypes,
 	}.Build()
-	File_konfa_voice_relay_v1_service_proto = out.File
-	file_konfa_voice_relay_v1_service_proto_goTypes = nil
-	file_konfa_voice_relay_v1_service_proto_depIdxs = nil
+	File_confa_voice_relay_v1_service_proto = out.File
+	file_confa_voice_relay_v1_service_proto_goTypes = nil
+	file_confa_voice_relay_v1_service_proto_depIdxs = nil
 }
