@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/confa-chat/voice-relay/internal/codec"
-	voicev1 "github.com/confa-chat/voice-relay/internal/proto/gen/confa/voice_relay/v1"
+	voicev1 "github.com/confa-chat/voice-relay/internal/proto/gen/confa/voice/v1"
 	"google.golang.org/grpc"
 )
 
@@ -31,6 +31,48 @@ func (s *Service) server(name string) *Server {
 	}
 
 	return s.servers[name]
+}
+
+// WatchChannel implements voicev1.VoiceRelayServiceServer.
+func (s *Service) WatchChannel(req *voicev1.WatchChannelRequest, out grpc.ServerStreamingServer[voicev1.WatchChannelResponse]) error {
+	if req := req.GetRequestSingle(); req != nil {
+		vc := s.server(req.ServerId).channel(req.ChannelId)
+
+		oldUsers := vc.Users()
+		slices.Sort(oldUsers)
+
+		err := out.Send(&voicev1.WatchChannelResponse{
+			ServerId:  req.ServerId,
+			ChannelId: req.ChannelId,
+			UsersState: &voicev1.UsersState{
+				UserIds: oldUsers,
+			},
+		})
+		if err != nil {
+			return err
+		}
+
+		for range time.NewTicker(time.Millisecond).C {
+			newUsers := vc.Users()
+			slices.Sort(newUsers)
+
+			if !slices.Equal(oldUsers, newUsers) {
+				err := out.Send(&voicev1.WatchChannelResponse{
+					ServerId:  req.ServerId,
+					ChannelId: req.ChannelId,
+					UsersState: &voicev1.UsersState{
+						UserIds: oldUsers,
+					},
+				})
+				if err != nil {
+					return err
+				}
+				oldUsers = newUsers
+			}
+		}
+	}
+
+	panic("unknow message type")
 }
 
 func (s *Service) JoinChannel(req *voicev1.JoinChannelRequest, out grpc.ServerStreamingServer[voicev1.JoinChannelResponse]) error {

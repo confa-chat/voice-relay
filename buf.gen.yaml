@@ -20,4 +20,6 @@ plugins:
       - paths=source_relative
 
 inputs:
-  - directory: proto
+  - git_repo: https://github.com/confa-chat/proto
+    paths:
+      - confa/voice

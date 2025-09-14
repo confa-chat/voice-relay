@@ -1,66 +1,65 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Launch Server",
-            "type": "go",
-            "request": "launch",
-            "mode": "auto",
-            "program": "${workspaceFolder}/cmd/server/main.go"
-        },
-        {
-            "name": "Launch Client [RoyalCat]",
-            "type": "go",
-            "request": "launch",
-            "mode": "auto",
-            "program": "${workspaceFolder}/cmd/client",
-            "args": [
-                "--host",
-                "localhost:8081",
-                "--user",
-                "royalcat",
-                "--server",
-                "confach",
-                "--channel",
-                "test"
-            ]
-        },
-        {
-            "name": "Launch Client [Test]",
-            "type": "go",
-            "request": "launch",
-            "mode": "auto",
-            "program": "${workspaceFolder}/cmd/client",
-            "args": [
-                "--host",
-                "localhost:8081",
-                "--user",
-                "test",
-                "--server",
-                "confach",
-                "--channel",
-                "test"
-            ]
-        },
-        {
-            "name": "Launch Remote Client",
-            "type": "go",
-            "request": "launch",
-            "mode": "auto",
-            "program": "${workspaceFolder}/cmd/client",
-            "args": [
-                "--host",
-                "185.246.155.213:8081",
-                "--user",
-                "royalcat",
-                "--server",
-                "confach",
-                "--channel",
-                "test"
-            ]
-        },
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Server",
+      "type": "go",
+      "request": "launch",
+      "program": "${workspaceFolder}/cmd/server/main.go"
+    },
+    {
+      "name": "Launch Client [RoyalCat]",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/client",
+      "args": [
+        "--host",
+        "localhost:8081",
+        "--user",
+        "royalcat",
+        "--server",
+        "confach",
+        "--channel",
+        "test"
+      ]
+    },
+    {
+      "name": "Launch Client [Test]",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/client",
+      "args": [
+        "--host",
+        "localhost:8081",
+        "--user",
+        "test",
+        "--server",
+        "confach",
+        "--channel",
+        "test"
+      ]
+    },
+    {
+      "name": "Launch Remote Client",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/client",
+      "args": [
+        "--host",
+        "185.246.155.213:8081",
+        "--user",
+        "royalcat",
+        "--server",
+        "confach",
+        "--channel",
+        "test"
+      ]
+    }
+  ]
 }

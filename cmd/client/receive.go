@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/confa-chat/voice-relay/internal/codec"
-	voicev1 "github.com/confa-chat/voice-relay/internal/proto/gen/confa/voice_relay/v1"
+	voicev1 "github.com/confa-chat/voice-relay/internal/proto/gen/confa/voice/v1"
 
 	"github.com/gordonklaus/portaudio"
 )

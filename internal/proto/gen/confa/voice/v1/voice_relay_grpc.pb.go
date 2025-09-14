@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: confa/voice_relay/v1/service.proto
+// source: confa/voice/v1/voice_relay.proto
 
-package voice_relayv1
+package voicev1
 
 import (
 	context "context"
@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	VoiceRelayService_SpeakToChannel_FullMethodName = "/confa.voice_relay.v1.VoiceRelayService/SpeakToChannel"
-	VoiceRelayService_ListenToUser_FullMethodName   = "/confa.voice_relay.v1.VoiceRelayService/ListenToUser"
-	VoiceRelayService_JoinChannel_FullMethodName    = "/confa.voice_relay.v1.VoiceRelayService/JoinChannel"
+	VoiceRelayService_SpeakToChannel_FullMethodName = "/confa.voice.v1.VoiceRelayService/SpeakToChannel"
+	VoiceRelayService_ListenToUser_FullMethodName   = "/confa.voice.v1.VoiceRelayService/ListenToUser"
+	VoiceRelayService_JoinChannel_FullMethodName    = "/confa.voice.v1.VoiceRelayService/JoinChannel"
+	VoiceRelayService_WatchChannel_FullMethodName   = "/confa.voice.v1.VoiceRelayService/WatchChannel"
 )
 
 // VoiceRelayServiceClient is the client API for VoiceRelayService service.
@@ -31,6 +32,7 @@ type VoiceRelayServiceClient interface {
 	SpeakToChannel(ctx context.Context, opts ...grpc.CallOption) (grpc.ClientStreamingClient[SpeakToChannelRequest, SpeakToChannelResponse], error)
 	ListenToUser(ctx context.Context, in *ListenToUserRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ListenToUserResponse], error)
 	JoinChannel(ctx context.Context, in *JoinChannelRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[JoinChannelResponse], error)
+	WatchChannel(ctx context.Context, in *WatchChannelRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[WatchChannelResponse], error)
 }
 
 type voiceRelayServiceClient struct {
@@ -92,6 +94,25 @@ func (c *voiceRelayServiceClient) JoinChannel(ctx context.Context, in *JoinChann
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type VoiceRelayService_JoinChannelClient = grpc.ServerStreamingClient[JoinChannelResponse]
 
+func (c *voiceRelayServiceClient) WatchChannel(ctx context.Context, in *WatchChannelRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[WatchChannelResponse], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &VoiceRelayService_ServiceDesc.Streams[3], VoiceRelayService_WatchChannel_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[WatchChannelRequest, WatchChannelResponse]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type VoiceRelayService_WatchChannelClient = grpc.ServerStreamingClient[WatchChannelResponse]
+
 // VoiceRelayServiceServer is the server API for VoiceRelayService service.
 // All implementations should embed UnimplementedVoiceRelayServiceServer
 // for forward compatibility.
@@ -99,6 +120,7 @@ type VoiceRelayServiceServer interface {
 	SpeakToChannel(grpc.ClientStreamingServer[SpeakToChannelRequest, SpeakToChannelResponse]) error
 	ListenToUser(*ListenToUserRequest, grpc.ServerStreamingServer[ListenToUserResponse]) error
 	JoinChannel(*JoinChannelRequest, grpc.ServerStreamingServer[JoinChannelResponse]) error
+	WatchChannel(*WatchChannelRequest, grpc.ServerStreamingServer[WatchChannelResponse]) error
 }
 
 // UnimplementedVoiceRelayServiceServer should be embedded to have
@@ -116,6 +138,9 @@ func (UnimplementedVoiceRelayServiceServer) ListenToUser(*ListenToUserRequest, g
 }
 func (UnimplementedVoiceRelayServiceServer) JoinChannel(*JoinChannelRequest, grpc.ServerStreamingServer[JoinChannelResponse]) error {
 	return status.Errorf(codes.Unimplemented, "method JoinChannel not implemented")
+}
+func (UnimplementedVoiceRelayServiceServer) WatchChannel(*WatchChannelRequest, grpc.ServerStreamingServer[WatchChannelResponse]) error {
+	return status.Errorf(codes.Unimplemented, "method WatchChannel not implemented")
 }
 func (UnimplementedVoiceRelayServiceServer) testEmbeddedByValue() {}
 
@@ -166,11 +191,22 @@ func _VoiceRelayService_JoinChannel_Handler(srv interface{}, stream grpc.ServerS
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type VoiceRelayService_JoinChannelServer = grpc.ServerStreamingServer[JoinChannelResponse]
 
+func _VoiceRelayService_WatchChannel_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(WatchChannelRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(VoiceRelayServiceServer).WatchChannel(m, &grpc.GenericServerStream[WatchChannelRequest, WatchChannelResponse]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type VoiceRelayService_WatchChannelServer = grpc.ServerStreamingServer[WatchChannelResponse]
+
 // VoiceRelayService_ServiceDesc is the grpc.ServiceDesc for VoiceRelayService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var VoiceRelayService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "confa.voice_relay.v1.VoiceRelayService",
+	ServiceName: "confa.voice.v1.VoiceRelayService",
 	HandlerType: (*VoiceRelayServiceServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
@@ -189,6 +225,11 @@ var VoiceRelayService_ServiceDesc = grpc.ServiceDesc{
 			Handler:       _VoiceRelayService_JoinChannel_Handler,
 			ServerStreams: true,
 		},
+		{
+			StreamName:    "WatchChannel",
+			Handler:       _VoiceRelayService_WatchChannel_Handler,
+			ServerStreams: true,
+		},
 	},
-	Metadata: "confa/voice_relay/v1/service.proto",
+	Metadata: "confa/voice/v1/voice_relay.proto",
 }
